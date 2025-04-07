@@ -108,8 +108,9 @@ def update_policy(
 @parser.wrap()
 def train(cfg: TrainPipelineConfig):
     cfg.validate()
+    
     logging.info(pformat(cfg.to_dict()))
-
+    logging.info(f"Batch size = {cfg.batch_size}")
     if cfg.wandb.enable and cfg.wandb.project:
         wandb_logger = WandBLogger(cfg)
     else:
@@ -208,7 +209,7 @@ def train(cfg: TrainPipelineConfig):
         for key in batch:
             if isinstance(batch[key], torch.Tensor):
                 batch[key] = batch[key].to(device, non_blocking=True)
-
+        #logging.info("about to update policy")
         train_tracker, output_dict = update_policy(
             train_tracker,
             policy,
@@ -219,7 +220,7 @@ def train(cfg: TrainPipelineConfig):
             lr_scheduler=lr_scheduler,
             use_amp=cfg.policy.use_amp,
         )
-
+        #logging.info("policy updated")
         # Note: eval and checkpoint happens *after* the `step`th training update has completed, so we
         # increment `step` here.
         step += 1

@@ -1,0 +1,2 @@
+#!/bin/bash
+python lerobot/scripts/control_robot.py --robot.type=so100 --control.type=record --control.fps=30 --control.single_task="Grasp a duck and place it on the black square" --control.repo_id=badwolf256/so100_twin_cam_duck_v3 --control.tags='["so100","duck"]' --control.warmup_time_s=5 --control.episode_time_s=30 --control.reset_time_s=10 --control.num_episodes=10  --control.push_to_hub=true --control.resume=true
