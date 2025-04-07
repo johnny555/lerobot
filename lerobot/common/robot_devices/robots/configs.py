@@ -443,15 +443,15 @@ class So100RobotConfig(ManipulatorRobotConfig):
     leader_arms: dict[str, MotorsBusConfig] = field(
         default_factory=lambda: {
             "main": FeetechMotorsBusConfig(
-                port="/dev/tty.usbmodem58760431091",
+                port="/dev/ttyACM1",
                 motors={
                     # name: (index, model)
-                    "shoulder_pan": [1, "sts3215"],
-                    "shoulder_lift": [2, "sts3215"],
-                    "elbow_flex": [3, "sts3215"],
-                    "wrist_flex": [4, "sts3215"],
-                    "wrist_roll": [5, "sts3215"],
-                    "gripper": [6, "sts3215"],
+                    "shoulder_pan": [2, "sts3215"],
+                    "shoulder_lift": [5, "sts3215"],
+                    "elbow_flex": [8, "sts3215"],
+                    "wrist_flex": [11, "sts3215"],
+                    "wrist_roll": [14, "sts3215"],
+                    "gripper": [17, "sts3215"],
                 },
             ),
         }
@@ -460,15 +460,15 @@ class So100RobotConfig(ManipulatorRobotConfig):
     follower_arms: dict[str, MotorsBusConfig] = field(
         default_factory=lambda: {
             "main": FeetechMotorsBusConfig(
-                port="/dev/tty.usbmodem585A0076891",
+                port="/dev/ttyACM0",
                 motors={
                     # name: (index, model)
-                    "shoulder_pan": [1, "sts3215"],
-                    "shoulder_lift": [2, "sts3215"],
-                    "elbow_flex": [3, "sts3215"],
-                    "wrist_flex": [4, "sts3215"],
-                    "wrist_roll": [5, "sts3215"],
-                    "gripper": [6, "sts3215"],
+                    "shoulder_pan": [3, "sts3215"],
+                    "shoulder_lift": [6, "sts3215"],
+                    "elbow_flex": [9, "sts3215"],
+                    "wrist_flex": [18, "sts3215"],
+                    "wrist_roll": [15, "sts3215"],
+                    "gripper": [1, "sts3215"],
                 },
             ),
         }
@@ -476,23 +476,18 @@ class So100RobotConfig(ManipulatorRobotConfig):
 
     cameras: dict[str, CameraConfig] = field(
         default_factory=lambda: {
-            "laptop": OpenCVCameraConfig(
-                camera_index=0,
-                fps=30,
-                width=640,
-                height=480,
-            ),
-            "phone": OpenCVCameraConfig(
-                camera_index=1,
-                fps=30,
-                width=640,
-                height=480,
-            ),
+            "realsense": 
+            IntelRealSenseCameraConfig(serial_number=740112071370, fps=30, width=320, height=240),
+
+            "wrist": 
+                OpenCVCameraConfig(camera_index=6, 
+                                   fps=30, 
+                                   width=320, 
+                                   height=240)
         }
     )
 
     mock: bool = False
-
 
 @RobotConfig.register_subclass("stretch")
 @dataclass

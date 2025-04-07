@@ -48,13 +48,14 @@ class WandBConfig:
     entity: str | None = None
     notes: str | None = None
     run_id: str | None = None
+    mode: str | None = None  # Allowed values: 'online', 'offline' 'disabled'. Defaults to 'online'
 
 
 @dataclass
 class EvalConfig:
     n_episodes: int = 50
     # `batch_size` specifies the number of environments to use in a gym.vector.VectorEnv.
-    batch_size: int = 50
+    batch_size: int = 4
     # `use_async_envs` specifies whether to use asynchronous environments (multiprocessing).
     use_async_envs: bool = False
 
